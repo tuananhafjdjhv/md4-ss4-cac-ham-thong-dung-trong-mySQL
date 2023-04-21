@@ -37,22 +37,17 @@ CREATE TABLE Mark
     FOREIGN KEY (Sub_Id) REFERENCES Subject (Sub_Id),
     FOREIGN KEY (Student_Id) REFERENCES Student (Student_Id)
 );
-select * from student;
-select * from mark;
-select*from subject;
-select*from class;
+
 
 select * from student where status = true;
 SELECT *FROM Subject WHERE Credit < 2;
 SELECT S.student_id, S.Student_name, C.Class_name
 FROM Student S join Class C on S.Class_Id = C.Class_ID ;
-SELECT S.Student_Id, S.Student_Name, C.Class_Name
-FROM Student S join Class C on S.Class_Id = C.Class_ID
-WHERE S.Student_Name = "nguyen minh quan";
+
 
 SELECT S.Student_Id, S.Student_Name, `Subject`.Subject_Name, M.Mark
-FROM Student S join Mark M on S.Student_Id = M.Student_Id join `Subject` Sub on M.Subject_Id = Sub.Sub_Id;
-use quanlysinhvien;
+FROM Student S join Mark M on S.Student_Id = M.Student_Id join `Subject` Sub on M.Subject_Id = Sub.Sub_Id ;
+
 select * from class;
 select * from mark;
 select * from student;
@@ -72,23 +67,23 @@ FROM Student S join Mark M on S.Student_Id = M.Student_Id
 GROUP BY S.Student_Id, S.Student_Name
 HAVING AVG(Mark) > 15;
 
-SELECT S.Student_Id, S.Student_Name, AVG(Mark)
-FROM Student S join Mark M on S.Student_Id = M.Student_Id
-GROUP BY S.Student_Id, S.Student_Name;
 
 SELECT S.Student_Id, S.Student_Name, AVG(Mark)
 FROM Student S join Mark M on S.Student_Id = M.Student_Id
 GROUP BY S.Student_Id, S.Student_Name
 HAVING AVG(Mark) >= ALL (SELECT AVG(Mark) FROM Mark GROUP BY Mark.Student_Id);
 
--- ss3 bai tap
 
+select * from student;
 select * from subject;
 select * from mark;
 select *from `subject` where credit = (select max(credit) from `subject`);
-select `subject`.subject_name from `subject` where credit = (select max(credit) from `subject`);
-select s.student_name,m.mark from student s join mark m order by m.mark desc;
-delete from mark where mark_id =(3,4,5);
+select * from `subject` where credit = (select max(credit) from `subject`);
+-- Hiển thị các thông tin sinh viên và điểm trung bình của mỗi sinh viên, xếp hạng theo thứ tự điểm giảm dần
+select s.*, avg(m.mark) as `diem trung binh` 
+from student s join mark m on s.student_id=m.student_id group by student_id
+ order by avg(mark) desc;
+
 
 
 
